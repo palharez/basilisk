@@ -2,12 +2,14 @@ from uuid import uuid4
 from glob import glob
 from basilisk.__init__ import __directory__
 from basilisk.password import Password
+from basilisk.cipher import Cipher
 from basilisk.utils import encode_password, get_password_directory
 
 
 class Basilisk:
-    def __init__(self):
+    def __init__(self, key):
         self.passwords = []
+        self.cipher = Cipher(key=key)
         self.mount()
 
     def mount(self):
@@ -17,14 +19,22 @@ class Basilisk:
                 content = file.read()
                 self.passwords.append(Password(content, password_file_path))
 
+    def find(self, idx):
+        password = self.passwords[idx]
+
+        return {
+            "name": password.name,
+            "password": self.cipher.decrypt(password.hashed_password),
+        }
+
     def show(self):
-        for password in self.passwords:
-            print(password)
+        return self.passwords
 
     def create_password(self, name, password):
         file_name = f"jararaca-{uuid4()}.json"
         file_path = f"{get_password_directory()}/{file_name}"
-        encoded_password = encode_password(name, password)
+        encrypted_password = self.cipher.encrypt(password)
+        encoded_password = encode_password(name, encrypted_password)
 
         with open(file_path, "w") as file:
             file.write(encoded_password)
@@ -34,6 +44,7 @@ class Basilisk:
 
 def run():
     print("Running Basilisk")
-    baselisk = Basilisk()
-    baselisk.create_password("SamplesPassName", "SamplesPass")
-    baselisk.show()
+    baselisk = Basilisk("SampleKey")
+    # baselisk.create_password("SenhaDoModi", "AmoMuitoODudu")
+    # print(baselisk.show())
+    print(baselisk.find(1))

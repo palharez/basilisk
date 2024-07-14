@@ -17,3 +17,6 @@ class Password:
 
     def __str__(self):
         return f"{self.path}, {self.name}, {self.hashed_password}"
+
+    def __repr__(self):
+        return f"Passowrd(name={self.name})"
