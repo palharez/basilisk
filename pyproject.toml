@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "basilisk"
+version = "0.1.0"
+description = "Basilisk is a portable password manager"
+authors = ["Eduardo Palhares <edaurdo@palharez.dev>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
