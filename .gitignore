@@ -5,3 +5,4 @@ passwords/*.json
 __pycache__/
 *.py[cod]
 *$py.class
+basilisk/run.py

@@ -40,11 +40,3 @@ class Basilisk:
             file.write(encoded_password)
 
         self.passwords.append(Password(encoded_password, file_path))
-
-
-def run():
-    print("Running Basilisk")
-    baselisk = Basilisk("SampleKey")
-    # baselisk.create_password("SenhaDoModi", "AmoMuitoODudu")
-    # print(baselisk.show())
-    print(baselisk.find(1))

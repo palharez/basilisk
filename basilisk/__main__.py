@@ -9,7 +9,3 @@ if __name__ == "__main__":
             f"Basilisk requires Python 3.8+\nYou are using Python {python_version}, which is not supported by Basilisk."
         )
         sys.exit(1)
-
-    from basilisk.basilisk import run
-
-    run()
