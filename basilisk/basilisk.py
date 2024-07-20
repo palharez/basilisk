@@ -4,13 +4,35 @@ from basilisk.__init__ import __directory__
 from basilisk.password import Password
 from basilisk.cipher import Cipher
 from basilisk.utils import encode_password, get_password_directory
+from pathlib import Path
+from configparser import RawConfigParser
+from os.path import isfile
 
 
 class Basilisk:
-    def __init__(self, key):
+    def __init__(self):
         self.passwords = []
-        self.cipher = Cipher(key=key)
+
+        key = self._get_config_key()
+        self.cipher = Cipher(key)
+
         self.mount()
+
+    def _get_config_file(self):
+        current_dir = Path.cwd()
+        config_dir = current_dir / "config"
+        config_file = config_dir / "config.ini"
+
+        if not isfile(config_file):
+            raise ValueError("Configuration file not found")
+
+        return config_file
+
+    def _get_config_key(self):
+        config_file = self._get_config_file()
+        parser = RawConfigParser()
+        parser.read(str(config_file))
+        return parser.get("default", "key")
 
     def mount(self):
         passwords_files_paths = glob(get_password_directory() + "/*.json")
@@ -28,7 +50,8 @@ class Basilisk:
         }
 
     def show(self):
-        return self.passwords
+        for idx, password in enumerate(self.passwords):
+            print(f"idx: {idx}, password: {password}")
 
     def create_password(self, name, password):
         file_name = f"jararaca-{uuid4()}.json"

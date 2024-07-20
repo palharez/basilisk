@@ -16,7 +16,7 @@ class Password:
             print("Error while writing to the file.")
 
     def __str__(self):
-        return f"{self.path}, {self.name}, {self.hashed_password}"
+        return f"Password(name={self.name})"
 
     def __repr__(self):
-        return f"Passowrd(name={self.name})"
+        return self.__str__
