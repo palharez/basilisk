@@ -1,13 +1,14 @@
 [tool.poetry]
 name = "basilisk"
-version = "0.1.0"
-description = "Basilisk is a portable password manager"
+version = "1.0.0"
+description = "Basilisk is a lightweight cli password manager"
 authors = ["Eduardo Palhares <edaurdo@palharez.dev>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
 pycryptodome = "^3.20.0"
+typer = "^0.12.3"
 
 
 [build-system]

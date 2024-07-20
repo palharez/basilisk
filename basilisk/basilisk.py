@@ -50,8 +50,10 @@ class Basilisk:
         }
 
     def show(self):
-        for idx, password in enumerate(self.passwords):
-            print(f"idx: {idx}, password: {password}")
+        return [
+            f"idx: {idx}, password: {password}"
+            for idx, password in enumerate(self.passwords)
+        ]
 
     def create_password(self, name, password):
         file_name = f"jararaca-{uuid4()}.json"
@@ -62,4 +64,7 @@ class Basilisk:
         with open(file_path, "w") as file:
             file.write(encoded_password)
 
-        self.passwords.append(Password(encoded_password, file_path))
+        password = Password(encoded_password, file_path)
+        self.passwords.append(password)
+
+        return password
